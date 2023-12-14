@@ -17,4 +17,4 @@ app.config.update(
     DATASET_AUTOCORRECT = os.path.join(dir_path,"controller\\autocorrect_dataset\\talpco_id.txt")
 )
 
-from application import new_route
+from application import routes
