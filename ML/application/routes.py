@@ -17,8 +17,6 @@ import pickle
 model_dict = pickle.load(open(app.config['MODEL_PATH_RFC'], 'rb'))
 model = model_dict['model']
 
-
-
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -89,7 +87,7 @@ def predict_sign_language(user):
                 
                 else:
                     x2 = x1 + (y2 - y1)
-                    x2 = int(0.7 * x2)
+                    x2 = int(0.75 * x2)
                     x1 = int((x1 - (0.25 * x2)))
                 
                 x1=int(x1-(x1*0.4))
