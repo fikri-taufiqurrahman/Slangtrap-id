@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from .db import db
 
 # Change this to your secret key (it can be anything, it's for extra protection)
-SECRET_KEY = 'secret key'
+SECRET_KEY = 'keyrahasiakey'
 PROFILE_FOLDER = 'static/profile_pic/'
 IMAGE_FOLDER = 'static/image_history/'
 
