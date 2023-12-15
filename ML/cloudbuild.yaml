@@ -19,3 +19,5 @@ steps:
 # Store images
 #images:
  # - 'gcr.io/$PROJECT_ID/slangtrap-model'
+options:
+  logging: CLOUD_LOGGING_ONLY
