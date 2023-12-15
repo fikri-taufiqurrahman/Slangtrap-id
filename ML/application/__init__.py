@@ -27,6 +27,7 @@ app.config['PROFILE_FOLDER'] = PROFILE_FOLDER
 app.config['IMAGE_FOLDER'] = IMAGE_FOLDER
 app.config['EXP_DATE'] = EXP_DATE
 app.config['ORG_DOMAINS'] = ORG_DOMAINS
+app.config['ALLOWED_EXTENSIONS'] = ALLOWED_EXTENSIONS
 
 
 CORS(app, supports_credentials=True)
