@@ -130,7 +130,7 @@ def logout():
     return jsonify({'message': 'No token provided'}), 400
 
 # http://localhost:5000/login/
-@app.route('/login/', methods=['POST'])
+@app.route('/login', methods=['POST'])
 def login():
     # Output message if something goes wrong...
     msg = ''
