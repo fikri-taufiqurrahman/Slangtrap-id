@@ -510,7 +510,7 @@ def post_history(current_user):
         user_id = current_user.get('id')
         word = request.form['word']
 
-        new_history = History(user_id=user_id, word=word, created_at=datetime.utcnow())
+        new_history = History(user_id=user_id, word=word)
         db.session.add(new_history)
         db.session.commit()
 
@@ -533,6 +533,40 @@ def post_history(current_user):
     
     # Form is empty... (no POST data)
     msg = 'Please fill out user_id and word'
+    response = {
+                "error": True,
+                "message": msg,
+    }
+    json_response = jsonify(response)
+    json_response.status_code = 409
+    return json_response
+
+# http://localhost:5000/edithistory
+@app.route('/history/<int:id>/<word>', methods=['PUT'])
+@token_required
+def edit_history_param(current_user,id,word):
+    # Output message if something goes wrong...
+    msg = ''
+    history_id = id
+
+    # We need all the user info for the user so we can display it on the profile page
+    history = History.query.get(history_id)
+    # Check if user exists
+    if history and word:
+        history.word=word
+
+        db.session.commit()
+
+        msg = 'Hisotry have successfully edited!'
+        response = {
+            "error": False,
+            "message": msg,
+        }
+        json_response = jsonify(response)
+        json_response.status_code = 200
+        return json_response
+
+    msg= 'User not found'
     response = {
                 "error": True,
                 "message": msg,
@@ -711,15 +745,21 @@ def get_user_history(current_user):
 
 
 
-@app.route('/upload_image/<user>', methods=['POST'])
-def upload_image_route(user):
+@app.route('/upload_image/<int:history_id>', methods=['POST'])
+@token_required
+def upload_image_route(current_user,history_id):
+    # post_image_history(history_id)
     
-    return upload_image_controller(user)
+    return upload_image_controller(str(history_id))
     
-@app.route('/predict/<user>', methods=['POST'])
-def predict_route(user):
+@app.route('/predict/<int:history_id>', methods=['POST'])
+@token_required
+def predict_route(current_user,history_id):
+    output = predict_controller(str(history_id))
+    edit_history_param(history_id, output["word_cnn"])  # Assuming 'edit_history' is the function to edit history
+    return jsonify(output)
     
-    return  predict_controller(user)
+    # return  predict_controller(str(history_id))
 
 
     

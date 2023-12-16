@@ -19,7 +19,7 @@ EXP_DATE = datetime.utcnow() + timedelta(days=3650)  # Set expiration to 10 year
 app = Flask(__name__)
 
 # Enter your database connection details below
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/db_capstone2'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/db_capstone3'
 
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 
 app.config['SECRET_KEY'] = SECRET_KEY
