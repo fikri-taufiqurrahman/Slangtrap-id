@@ -5,6 +5,8 @@ from flask_cors import CORS
 
 from datetime import datetime, timedelta
 
+from sqlalchemy import create_engine
+
 from .db import db
 
 # Change this to your secret key (it can be anything, it's for extra protection)
@@ -19,7 +21,24 @@ EXP_DATE = datetime.utcnow() + timedelta(days=3650)  # Set expiration to 10 year
 app = Flask(__name__)
 
 # Enter your database connection details below
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/db_capstone3'
+
+DB_USER = 'root'
+DB_PASSWORD = 'capstone-db'
+DB_NAME = 'db_capstone1'
+CLOUD_SQL_CONNECTION_NAME = 'slangtrap-capstone-406914:asia-southeast2:capstone-db'
+DB_PORT = '3306'
+
+SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@34.128.82.108:{DB_PORT}/{DB_NAME}"
+# SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@/{DB_NAME}?unix_socket=/cloudsql/{CLOUD_SQL_CONNECTION_NAME}"
+
+# Create the engine
+engine = create_engine(SQLALCHEMY_DATABASE_URI)
+
+# # Bind the engine to a session
+# Session = sessionmaker(bind=engine)
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/db_capstone3'
 
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 
 app.config['SECRET_KEY'] = SECRET_KEY
